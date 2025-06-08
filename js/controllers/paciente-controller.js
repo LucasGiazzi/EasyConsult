@@ -16,7 +16,42 @@ class PacienteController {
         // Referências aos elementos do DOM
         this.formPaciente = document.getElementById('form-paciente');
         this.listaPacientes = document.getElementById('lista-pacientes');
-        
+
+        const telefoneInput = document.getElementById('telefone-paciente');
+
+        telefoneInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for número
+
+            if (value.length > 11) value = value.slice(0, 11); // Limita a 11 dígitos
+
+            if (value.length > 6) {
+                value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+            } else if (value.length > 2) {
+                value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+            } else if (value.length > 0) {
+                value = `(${value}`;
+            }
+
+            e.target.value = value;
+        });
+
+        const dataInput = document.getElementById('data-nascimento');
+
+        dataInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for número
+
+            if (value.length > 8) value = value.slice(0, 8); // Máximo: 8 dígitos
+
+            if (value.length > 4) {
+                value = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4)}`;
+            } else if (value.length > 2) {
+                value = `${value.slice(0, 2)}/${value.slice(2)}`;
+            }
+
+            e.target.value = value;
+        });
+
+
         // Inicializa os eventos
         this.inicializarEventos();
         
@@ -50,6 +85,11 @@ class PacienteController {
         const email = document.getElementById('email-paciente').value;
         const telefone = document.getElementById('telefone-paciente').value;
         const dataNascimento = document.getElementById('data-nascimento').value;
+
+        if (telefone.length < 14) {
+            alert("Telefone inválido.");
+            return;
+        }
         
         // Cria ou atualiza o paciente usando o Factory
         const paciente = EntityFactory.create('paciente', {
@@ -99,16 +139,18 @@ class PacienteController {
         // Adiciona cada paciente à lista
         pacientes.forEach(pacienteData => {
             const paciente = Paciente.fromJSON(pacienteData);
+
+            const [ano, mes, dia] = paciente.dataNascimento.split('-');
+            const dataFormatada = `${dia}/${mes}/${ano}`;
             
             const li = document.createElement('li');
             li.className = 'lista-item';
-            
             li.innerHTML = `
                 <div class="lista-item-info">
                     <div class="lista-item-nome">${paciente.nome}</div>
                     <div class="lista-item-detalhe">
                         ${paciente.email} | ${paciente.telefone} | 
-                        ${config.formatDate(paciente.dataNascimento)}
+                        ${dataFormatada}
                         ${paciente.getIdade() ? ` (${paciente.getIdade()} anos)` : ''}
                     </div>
                 </div>

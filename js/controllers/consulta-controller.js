@@ -29,6 +29,23 @@ class ConsultaController {
         this.btnFiltrar = document.getElementById('btn-filtrar');
         this.btnLimparFiltro = document.getElementById('btn-limpar-filtro');
         
+        const dataInput = document.getElementById('data-consulta');
+
+        dataInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for número
+
+            if (value.length > 8) value = value.slice(0, 8); // Máximo: 8 dígitos
+
+            if (value.length > 4) {
+                value = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4)}`;
+            } else if (value.length > 2) {
+                value = `${value.slice(0, 2)}/${value.slice(2)}`;
+            }
+
+            e.target.value = value;
+        });
+
+
         // Inicializa os eventos
         this.inicializarEventos();
         
@@ -128,6 +145,8 @@ class ConsultaController {
         const data = document.getElementById('data-consulta').value;
         const hora = document.getElementById('hora-consulta').value;
         const tipo = document.getElementById('tipo-consulta').value;
+
+        console.log(data, hora)
         
         // Validações básicas
         if (!pacienteId || !profissionalId || !data || !hora || !tipo) {
@@ -216,9 +235,13 @@ class ConsultaController {
             if (!paciente || !profissional) return;
             
             const tr = document.createElement('tr');
+
+            const [ano, mes, dia] = consulta.data.split('-');
+            const dataFormatada = `${dia}/${mes}/${ano}`;
             
+            console.log(consulta.hora)
             tr.innerHTML = `
-                <td>${config.formatDate(consulta.data)}</td>
+                <td>${dataFormatada}</td>
                 <td>${consulta.hora}</td>
                 <td>${paciente.nome}</td>
                 <td>${profissional.nome}</td>

@@ -65,16 +65,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email-paciente">E-mail</label>
-                                    <input type="email" id="email-paciente" name="email-paciente" required>
+                                    <input type="email" id="email-paciente" name="email-paciente" required placeholder="exemplo@exemplo.com">
                                 </div>
                                 <div class="form-group">
                                     <label for="telefone-paciente">Telefone</label>
-                                    <input type="tel" id="telefone-paciente" name="telefone-paciente" required>
+                                    <input type="tel" id="telefone-paciente" name="telefone-paciente" required placeholder="(00) 00000-0000">
                                 </div>
                                 <div class="form-group">
                                     <label for="data-nascimento">Data de Nascimento</label>
-                                    <input type="date" id="data-nascimento" name="data-nascimento" required>
-                                </div>
+                                    <input type="text" id="data-nascimento" maxlength="10" placeholder="dd/mm/aaaa">
+                                </div>  
                                 <button type="submit" class="btn btn-primary">Cadastrar Paciente</button>
                             </form>
                             
@@ -107,11 +107,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="crm">CRM</label>
-                                    <input type="text" id="crm" name="crm" required>
+                                    <input type="text" id="crm" name="crm" required placeholder="12345">
                                 </div>
                                 <div class="form-group">
                                     <label for="email-profissional">E-mail</label>
-                                    <input type="email" id="email-profissional" name="email-profissional" required>
+                                    <input type="email" id="email-profissional" name="email-profissional" required placeholder="exemplo@exemplo.com">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Cadastrar Profissional</button>
                             </form>
@@ -145,7 +145,7 @@
                     </div>
                     <div class="form-group">
                         <label for="data-consulta">Data da Consulta</label>
-                        <input type="date" id="data-consulta" name="data-consulta" required>
+                        <input type="text" id="data-consulta" maxlength="10" placeholder="dd/mm/aaaa">
                     </div>
                     <div class="form-group">
                         <label for="hora-consulta">Horário</label>

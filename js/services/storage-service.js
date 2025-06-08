@@ -48,7 +48,7 @@ class StorageService {
     }
     
     /**
-     * Salva um item
+     Salva um item no localStorage, atualizando se já existe ou adicionando se for novo
      * @param {Object} item - Item a ser salvo
      * @returns {boolean} True se salvo com sucesso, False caso contrário
      */
