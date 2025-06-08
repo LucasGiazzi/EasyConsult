@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyConsult - Sistema de Agendamento de Consultas</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <h1>EasyConsult</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#home" class="active">Início</a></li>
+                    <li><a href="#cadastro">Cadastros</a></li>
+                    <li><a href="#agendamento">Agendamento</a></li>
+                    <li><a href="#consultas">Consultas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Inicial -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Agendamento de Consultas Simplificado</h2>
+                    <p>Sistema acadêmico para demonstração de boas práticas de desenvolvimento web com padrões de projeto.</p>
+                    <button class="btn btn-primary" onclick="scrollToSection('cadastro')">Começar</button>
+                </div>
+                <div class="hero-image">
+                    <img src="assets/hero-image.svg" alt="Ilustração de agendamento médico">
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Cadastros -->
+        <section id="cadastro" class="section">
+            <div class="container">
+                <h2 class="section-title">Cadastros</h2>
+                
+                <div class="tabs">
+                    <div class="tab-header">
+                        <div class="tab-item active" data-tab="pacientes">Pacientes</div>
+                        <div class="tab-item" data-tab="profissionais">Profissionais</div>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <!-- Cadastro de Pacientes -->
+                        <div class="tab-pane active" id="pacientes">
+                            <h3>Cadastro de Pacientes</h3>
+                            <form id="form-paciente" class="form">
+                                <div class="form-group">
+                                    <label for="nome-paciente">Nome Completo</label>
+                                    <input type="text" id="nome-paciente" name="nome-paciente" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email-paciente">E-mail</label>
+                                    <input type="email" id="email-paciente" name="email-paciente" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefone-paciente">Telefone</label>
+                                    <input type="tel" id="telefone-paciente" name="telefone-paciente" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="data-nascimento">Data de Nascimento</label>
+                                    <input type="date" id="data-nascimento" name="data-nascimento" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Cadastrar Paciente</button>
+                            </form>
+                            
+                            <div class="lista-container">
+                                <h4>Pacientes Cadastrados</h4>
+                                <ul id="lista-pacientes" class="lista"></ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Cadastro de Profissionais -->
+                        <div class="tab-pane" id="profissionais">
+                            <h3>Cadastro de Profissionais</h3>
+                            <form id="form-profissional" class="form">
+                                <div class="form-group">
+                                    <label for="nome-profissional">Nome Completo</label>
+                                    <input type="text" id="nome-profissional" name="nome-profissional" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="especialidade">Especialidade</label>
+                                    <select id="especialidade" name="especialidade" required>
+                                        <option value="">Selecione uma especialidade</option>
+                                        <option value="Clínico Geral">Clínico Geral</option>
+                                        <option value="Cardiologista">Cardiologista</option>
+                                        <option value="Dermatologista">Dermatologista</option>
+                                        <option value="Neurologista">Neurologista</option>
+                                        <option value="Pediatra">Pediatra</option>
+                                        <option value="Psiquiatra">Psiquiatra</option>
+                                        <option value="Ortopedista">Ortopedista</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="crm">CRM</label>
+                                    <input type="text" id="crm" name="crm" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email-profissional">E-mail</label>
+                                    <input type="email" id="email-profissional" name="email-profissional" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Cadastrar Profissional</button>
+                            </form>
+                            
+                            <div class="lista-container">
+                                <h4>Profissionais Cadastrados</h4>
+                                <ul id="lista-profissionais" class="lista"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Agendamento -->
+        <section id="agendamento" class="section">
+            <div class="container">
+                <h2 class="section-title">Agendamento de Consultas</h2>
+                <form id="form-agendamento" class="form">
+                    <div class="form-group">
+                        <label for="paciente-select">Paciente</label>
+                        <select id="paciente-select" name="paciente-select" required>
+                            <option value="">Selecione um paciente</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="profissional-select">Profissional</label>
+                        <select id="profissional-select" name="profissional-select" required>
+                            <option value="">Selecione um profissional</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="data-consulta">Data da Consulta</label>
+                        <input type="date" id="data-consulta" name="data-consulta" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora-consulta">Horário</label>
+                        <input type="time" id="hora-consulta" name="hora-consulta" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo-consulta">Tipo de Consulta</label>
+                        <select id="tipo-consulta" name="tipo-consulta" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="Primeira Consulta">Primeira Consulta</option>
+                            <option value="Retorno">Retorno</option>
+                            <option value="Exame">Exame</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agendar Consulta</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Seção de Consultas Agendadas -->
+        <section id="consultas" class="section">
+            <div class="container">
+                <h2 class="section-title">Consultas Agendadas</h2>
+                <div class="filtros">
+                    <div class="form-group">
+                        <label for="filtro-data">Filtrar por Data</label>
+                        <input type="date" id="filtro-data" name="filtro-data">
+                    </div>
+                    <div class="form-group">
+                        <label for="filtro-profissional">Filtrar por Profissional</label>
+                        <select id="filtro-profissional" name="filtro-profissional">
+                            <option value="">Todos os profissionais</option>
+                        </select>
+                    </div>
+                    <button id="btn-filtrar" class="btn btn-secondary">Filtrar</button>
+                    <button id="btn-limpar-filtro" class="btn btn-outline">Limpar Filtros</button>
+                </div>
+                
+                <div class="tabela-container">
+                    <table id="tabela-consultas" class="tabela">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Horário</th>
+                                <th>Paciente</th>
+                                <th>Profissional</th>
+                                <th>Especialidade</th>
+                                <th>Tipo</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-consultas">
+                            <!-- Consultas serão inseridas aqui via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="sem-consultas" class="mensagem-info">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Nenhuma consulta agendada.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 EasyConsult - Projeto Acadêmico</p>
+            <p>Desenvolvido com princípios SOLID, Clean Code e padrões de projeto GoF</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/models/factory.js"></script>
+    <script src="js/models/paciente.js"></script>
+    <script src="js/models/profissional.js"></script>
+    <script src="js/models/consulta.js"></script>
+    <script src="js/services/storage-service.js"></script>
+    <script src="js/services/observer.js"></script>
+    <script src="js/controllers/paciente-controller.js"></script>
+    <script src="js/controllers/profissional-controller.js"></script>
+    <script src="js/controllers/consulta-controller.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
